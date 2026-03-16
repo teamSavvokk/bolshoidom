@@ -14,9 +14,10 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { name, email, phone, service, message } = req.body;
+    // теперь принимаем поля как в форме
+    const { firstname, email, number, topic, message } = req.body;
 
-    if (!name || !email || !phone) {
+    if (!firstname || !email || !number) {
       return res.status(400).json({
         ok: false,
         message: 'Заполните обязательные поля: имя, email и телефон'
@@ -24,8 +25,8 @@ module.exports = async (req, res) => {
     }
 
     const trimmedEmail = String(email).trim();
-    const trimmedPhone = String(phone).trim();
-    const trimmedName = String(name).trim();
+    const trimmedPhone = String(number).trim();
+    const trimmedName = String(firstname).trim();
 
     let clientId = null;
 
@@ -66,7 +67,7 @@ module.exports = async (req, res) => {
       .insert([
         {
           id_clients: clientId,
-          topic: service || 'Обратная связь',
+          topic: topic || 'Обратная связь',
           message: message || ''
         }
       ]);
@@ -79,7 +80,10 @@ module.exports = async (req, res) => {
       ok: true,
       message: 'Обращение успешно отправлено'
     });
+
   } catch (error) {
+    console.error(error);
+
     return res.status(500).json({
       ok: false,
       message: 'Ошибка сервера',
