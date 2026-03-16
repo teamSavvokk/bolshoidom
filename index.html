@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Большой Дом</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-bg">
+    <span class="bg-strip strip-1"></span>
+    <span class="bg-strip strip-2"></span>
+    <span class="bg-strip strip-3"></span>
+    <span class="bg-strip strip-4"></span>
+  </div>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#top" class="logo" aria-label="Большой Дом">
+        <span>БОЛЬШОЙ</span>
+        <span>ДОМ</span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="#works">Наши работы</a>
+        <a href="#about">О нас</a>
+        <a href="#stages">Под ключ</a>
+        <a href="#career">Карьера</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+
+      <div class="header__actions">
+        <a class="header__phone" href="tel:+74991122323">info@site.com</a>
+        <a class="btn btn--small" href="#contacts">Связаться с нами</a>
+        <button class="burger" id="burger" aria-label="Открыть меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container section">
+      <div class="hero__content">
+        <h1 class="title title--hero">БОЛЬШОЙ ДОМ</h1>
+        <p class="hero__text">
+          Компания инвестиционных проектно-строительных комплексов,
+          работающая в сфере жилой и коммерческой недвижимости.
+        </p>
+
+        <div class="sectors-grid">
+          <article class="sector-card">
+            <h3>Технический</h3>
+            <img src="img/sectors (1).png" alt="Технический сектор">
+          </article>
+          <article class="sector-card">
+            <h3>Жилой</h3>
+            <img src="img/sectors (2).png" alt="Жилой сектор">
+          </article>
+          <article class="sector-card">
+            <h3>Коммерческий</h3>
+            <img src="img/sectors (3).png" alt="Коммерческий сектор">
+          </article>
+        </div>
+
+        <a class="btn hero__btn" href="#contacts">Рассчитать смету</a>
+      </div>
+    </section>
+
+    <section class="works container section" id="works">
+      <div class="section-heading">
+        <span></span>
+        <h2 class="title">НАШИ РАБОТЫ</h2>
+        <span></span>
+      </div>
+
+      <div class="slider">
+        <button class="slider__arrow slider__arrow--prev" id="prevSlide" aria-label="Предыдущий слайд">‹</button>
+        <div class="slider__viewport">
+          <div class="slider__track" id="sliderTrack">
+            <figure class="slide is-active">
+              <img src="img/Project_example (1).png" alt="Пример проекта 1">
+            </figure>
+            <figure class="slide">
+              <img src="img/Project_example (2).png" alt="Пример проекта 2">
+            </figure>
+            <figure class="slide">
+              <img src="img/Project_example (3).png" alt="Пример проекта 3">
+            </figure>
+          </div>
+        </div>
+        <button class="slider__arrow slider__arrow--next" id="nextSlide" aria-label="Следующий слайд">›</button>
+      </div>
+
+      <div class="slider__dots" id="sliderDots"></div>
+    </section>
+
+    <section class="app container section section--app">
+      <div class="app__text">
+        <h2 class="title title--left">НАС МОЖНО СКАЧАТЬ<br>НА ТЕЛЕФОН</h2>
+        <p>
+          У нас есть приложение, где можно следить за этапами строительства,
+          смотреть проекты и связываться с нашей командой.
+        </p>
+        <div class="app__actions">
+          <a class="btn btn--small" href="#">Скачать на iPhone</a>
+          <a class="btn btn--small btn--ghost" href="#">Скачать на Android</a>
+        </div>
+      </div>
+
+      <div class="app__visual">
+        <img src="img/Site.png" alt="Приложение Большой Дом на телефоне">
+      </div>
+    </section>
+
+    <section class="about container section" id="about">
+      <div class="about__heading">
+        <h2 class="title title--left">О НАС</h2>
+        <div>
+          <h3>Большой дом стремится</h3>
+          <p>
+            Воплощать высококачественные, инновационные и экономичные проекты,
+            которые строятся с любовью и вниманием к каждой детали.
+          </p>
+        </div>
+      </div>
+
+      <div class="about__grid">
+        <article class="about-card">
+          <div class="image-cut"><img src="img/Team (1).png" alt="Сотрудник компании"></div>
+          <h3>Мы стремимся</h3>
+          <p>Достигать отличных результатов, чтобы каждый проект выглядел уверенно и современно.</p>
+        </article>
+
+        <article class="about-card about-card--offset">
+          <div class="image-cut"><img src="img/Team (2).png" alt="Руководитель проекта"></div>
+          <h3>Наш совместный подход<br>является ключом</h3>
+          <p>К нашим возможностям, росту и развитию каждого проекта на всех этапах реализации.</p>
+        </article>
+
+        <article class="about-card">
+          <div class="image-cut"><img src="img/Team (3).png" alt="Инженер с рулеткой"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="stages container section" id="stages">
+      <div class="stages__content">
+        <div class="stages__text">
+          <h2 class="title title--left">ПОД КЛЮЧ</h2>
+          <p>
+            Мы выполняем весь комплекс работ под ключ —
+            от проектирования до финишной отделки и сдачи объекта.
+          </p>
+
+          <div class="stages__tabs" id="stageTabs">
+            <button class="stage-tab is-active" data-stage="0"><span>01</span> Проектирование</button>
+            <button class="stage-tab" data-stage="1"><span>02</span> Фундамент</button>
+            <button class="stage-tab" data-stage="2"><span>03</span> Возведение</button>
+            <button class="stage-tab" data-stage="3"><span>04</span> Инженерия</button>
+            <button class="stage-tab" data-stage="4"><span>05</span> Отделка</button>
+          </div>
+        </div>
+
+        <div class="stages__visual">
+          <img id="stageImage" src="img/Stages (5).png" alt="Этап строительства">
+          <div class="stage-caption" id="stageCaption">
+            Разработка плана дома, технической документации и всех ключевых проектных решений.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="career container section" id="career">
+      <div class="career__grid">
+        <div class="image-cut image-cut--wide">
+          <img id="careerImage" src="img/Career (1).png" alt="Карьера в компании">
+        </div>
+
+        <div class="career__content">
+          <h2 class="title title--left">КАРЬЕРА</h2>
+          <p class="career__lead">
+            Большой дом создаёт среду, которая поощряет совместный подход в
+            сочетании с профессиональным ростом.
+          </p>
+          <p>
+            У нас ценятся инициативность, ответственность, внимание к деталям
+            и желание развивать строительную культуру. Мы ищем специалистов,
+            которым важно делать качественный продукт вместе с сильной командой.
+          </p>
+
+          <div class="career__switches">
+            <button class="dot is-active" data-career="0" aria-label="Показать фото 1"></button>
+            <button class="dot" data-career="1" aria-label="Показать фото 2"></button>
+            <button class="dot" data-career="2" aria-label="Показать фото 3"></button>
+          </div>
+
+          <div class="career-line" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contacts container section" id="contacts">
+      <h2 class="title">СВЯЗАТЬСЯ С НАМИ</h2>
+
+      <div class="contacts__grid">
+        <form class="contact-form" id="contactForm">
+          <div class="form-grid">
+            <label>
+              <span>Имя</span>
+              <input type="text" name="firstname" placeholder="Введите ваше имя" required>
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="Введите вашу почту" required>
+            </label>
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="number" placeholder="Введите телефон" required>
+            </label>
+            <label>
+              <span>Услуга</span>
+              <input type="text" name="topic" placeholder="Выберите услугу">
+            </label>
+          </div>
+
+          <label class="form-message">
+            <span>Ваш запрос или требования</span>
+            <textarea name="message" rows="5" placeholder="Напишите сообщение"></textarea>
+          </label>
+
+          <button class="btn form__btn" type="submit">Отправить</button>
+          <p class="form-status" id="formStatus" aria-live="polite"></p>
+        </form>
+
+        <div class="contacts__map">
+          <iframe
+            title="Карта"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=30.308%2C59.93%2C30.33%2C59.945&amp;layer=mapnik"
+            loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#top" class="logo logo--footer">
+        <span>БОЛЬШОЙ</span>
+        <span>ДОМ</span>
+      </a>
+
+      <div class="footer__col">
+        <h3>Ссылки</h3>
+        <a href="#works">Наши работы</a>
+        <a href="#about">О нас</a>
+      </div>
+
+      <div class="footer__col">
+        <h3>Контакты</h3>
+        <a href="tel:+74991122323">+7 (499) 111-22-33</a>
+        <p>Россия, Санкт‑Петербург, ул. Архитекторов, 15</p>
+        <a href="mailto:info@site.com">info@site.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
