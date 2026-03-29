@@ -7,34 +7,16 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="page-bg">
-    <span class="bg-strip strip-1"></span>
-    <span class="bg-strip strip-2"></span>
-    <span class="bg-strip strip-3"></span>
-    <span class="bg-strip strip-4"></span>
-  </div>
 
   <header class="header">
     <div class="container header__inner">
       <a href="#top" class="logo" aria-label="Большой Дом">
-        <span>БОЛЬШОЙ</span>
-        <span>ДОМ</span>
+        <img src="img/logo.png" alt="Большой Дом">
       </a>
 
-      <nav class="nav" id="nav">
-        <a href="#works">Наши работы</a>
-        <a href="#about">О нас</a>
-        <a href="#stages">Под ключ</a>
-        <a href="#career">Карьера</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-
       <div class="header__actions">
-        <a class="header__phone" href="tel:+74991122323">info@site.com</a>
+        <a class="header__phone" href="mailto:info@bighouse.ru">info@bighouse.ru</a>
         <a class="btn btn--small" href="#contacts">Связаться с нами</a>
-        <button class="burger" id="burger" aria-label="Открыть меню">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </div>
   </header>
@@ -44,8 +26,7 @@
       <div class="hero__content">
         <h1 class="title title--hero">БОЛЬШОЙ ДОМ</h1>
         <p class="hero__text">
-          Компания инвестиционных проектно-строительных комплексов,
-          работающая в сфере жилой и коммерческой недвижимости.
+          динамичная многопрофильная проектно-строительная компания работающая в следующих секторах: 
         </p>
 
         <div class="sectors-grid">
@@ -63,15 +44,59 @@
           </article>
         </div>
 
-        <a class="btn hero__btn" href="#contacts">Рассчитать смету</a>
+        <button class="btn hero__btn" type="button" id="openEstimateModal">Рассчитать смету</button>
       </div>
     </section>
+    <div class="estimate-modal" id="estimateModal" hidden>
+      <div class="estimate-modal__backdrop" id="estimateModalBackdrop"></div>
+      <div class="estimate-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="estimateModalTitle">
+        <button class="estimate-modal__close" type="button" id="closeEstimateModal" aria-label="Закрыть">×</button>
+        <h2 class="estimate-modal__title" id="estimateModalTitle">Расчет стоимости проекта</h2>
+
+        <div class="estimate-modal__group">
+          <p class="estimate-modal__label">Основа</p>
+          <label class="estimate-option">
+            <input type="checkbox" class="estimate-checkbox" data-addon="80000">
+            <span>Проектирование дома</span>
+          </label>
+          <label class="estimate-option">
+            <input type="checkbox" class="estimate-checkbox" data-addon="120000">
+            <span>Земляные работы</span>
+          </label>
+          <label class="estimate-option">
+            <input type="checkbox" class="estimate-checkbox" data-addon="65000">
+            <span>Подготовка участка</span>
+          </label>
+        </div>
+
+        <div class="estimate-modal__group">
+          <label class="estimate-modal__label" for="estimateHouseType">Тип дома</label>
+          <select class="estimate-select" id="estimateHouseType">
+            <option value="16000">Одноэтажный дом — от 16 000 руб./м²</option>
+            <option value="18000">Двухэтажный дом — от 18 000 руб./м²</option>
+            <option value="17000">Дом с мансардой — от 17 000 руб./м²</option>
+            <option value="22000">С цокольным этажом — от 22 000 руб./м²</option>
+          </select>
+        </div>
+
+        <div class="estimate-modal__group estimate-modal__group--inline">
+          <label class="estimate-modal__label" for="estimateArea">Площадь дома</label>
+          <div class="estimate-area">
+            <input class="estimate-input" id="estimateArea" type="number" min="30" step="10" value="120">
+            <span>м²</span>
+          </div>
+        </div>
+
+        <div class="estimate-modal__footer">
+          <button class="btn estimate-modal__submit" type="button" id="estimateCalculateBtn">Рассчитать стоимость</button>
+          <div class="estimate-result" id="estimateResult">≈ 1 920 000 ₽</div>
+        </div>
+      </div>
+    </div>
 
     <section class="works container section" id="works">
       <div class="section-heading">
-        <span></span>
         <h2 class="title">НАШИ РАБОТЫ</h2>
-        <span></span>
       </div>
 
       <div class="slider">
@@ -109,64 +134,125 @@
       </div>
 
       <div class="app__visual">
-        <img src="img/Site.png" alt="Приложение Большой Дом на телефоне">
+        <img src="img/Mobile.png" alt="Приложение Большой Дом на телефоне">
       </div>
     </section>
 
     <section class="about container section" id="about">
-      <div class="about__heading">
-        <h2 class="title title--left">О НАС</h2>
-        <div>
-          <h3>Большой дом стремится</h3>
-          <p>
-            Воплощать высококачественные, инновационные и экономичные проекты,
-            которые строятся с любовью и вниманием к каждой детали.
-          </p>
-        </div>
+  <div class="about__composition">
+    <div class="about__media about__media--one">
+      <div class="image-cut">
+        <img src="img/Team (1).png" alt="Сотрудник компании">
       </div>
+    </div>
 
-      <div class="about__grid">
-        <article class="about-card">
-          <div class="image-cut"><img src="img/Team (1).png" alt="Сотрудник компании"></div>
-          <h3>Мы стремимся</h3>
-          <p>Достигать отличных результатов, чтобы каждый проект выглядел уверенно и современно.</p>
-        </article>
+    <div class="about__text about__text--intro">
+      <h2 class="title title--left">О НАС</h2>
+      <h3>Большой дом стремится</h3>
+      <p>
+        Воплощать высококачественные, инновационные и экономичные проекты,
+        которые строятся с любовью и вниманием к каждой детали.
+      </p>
+    </div>
 
-        <article class="about-card about-card--offset">
-          <div class="image-cut"><img src="img/Team (2).png" alt="Руководитель проекта"></div>
-          <h3>Наш совместный подход<br>является ключом</h3>
-          <p>К нашим возможностям, росту и развитию каждого проекта на всех этапах реализации.</p>
-        </article>
+    <div class="about__text about__text--one">
+      <h3>Мы стремимся</h3>
+      <p>
+        Обеспечить отличное качество и инновационные строительные решения.
+      </p>
+    </div>
 
-        <article class="about-card">
-          <div class="image-cut"><img src="img/Team (3).png" alt="Инженер с рулеткой"></div>
-        </article>
+    <div class="about__media about__media--two">
+      <div class="image-cut">
+        <img src="img/Team (2).png" alt="Руководитель проекта">
       </div>
-    </section>
+    </div>
+
+    <div class="about__media about__media--three">
+      <div class="image-cut">
+        <img src="img/Team (3).png" alt="Инженер с рулеткой">
+      </div>
+    </div>
+
+    <div class="about__text about__text--two">
+      <h3>Наш совместный подход<br>является ключом</h3>
+      <p>
+        К нашему успеху, и наши проекты демонстрируют навыки и талант нашей
+        команды во всех сферах нашей деятельности.
+      </p>
+    </div>
+  </div>
+</section>
 
     <section class="stages container section" id="stages">
       <div class="stages__content">
         <div class="stages__text">
           <h2 class="title title--left">ПОД КЛЮЧ</h2>
-          <p>
-            Мы выполняем весь комплекс работ под ключ —
-            от проектирования до финишной отделки и сдачи объекта.
+          <p class="stages__lead">
+            Мы выполним весь комплекс работ под ключ —
+            от фундамента до внутренней отделки помещений.
           </p>
 
           <div class="stages__tabs" id="stageTabs">
-            <button class="stage-tab is-active" data-stage="0"><span>01</span> Проектирование</button>
-            <button class="stage-tab" data-stage="1"><span>02</span> Фундамент</button>
-            <button class="stage-tab" data-stage="2"><span>03</span> Возведение</button>
-            <button class="stage-tab" data-stage="3"><span>04</span> Инженерия</button>
-            <button class="stage-tab" data-stage="4"><span>05</span> Отделка</button>
+            <button class="stage-tab is-active" data-stage="0" type="button">
+              <span class="stage-tab__number">01</span>
+              <div class="stage-tab__body">
+                <div class="stage-tab__heading">
+                  <span class="stage-tab__arrow">→</span>
+                  <span class="stage-tab__title">Проектирование</span>
+                </div>
+                <div class="stage-tab__text"></div>
+              </div>
+            </button>
+
+            <button class="stage-tab" data-stage="1" type="button">
+              <span class="stage-tab__number">02</span>
+              <div class="stage-tab__body">
+                <div class="stage-tab__heading">
+                  <span class="stage-tab__arrow">→</span>
+                  <span class="stage-tab__title">Фундамент</span>
+                </div>
+                <div class="stage-tab__text"></div>
+              </div>
+            </button>
+
+            <button class="stage-tab" data-stage="2" type="button">
+              <span class="stage-tab__number">03</span>
+              <div class="stage-tab__body">
+                <div class="stage-tab__heading">
+                  <span class="stage-tab__arrow">→</span>
+                  <span class="stage-tab__title">Возведение</span>
+                </div>
+                <div class="stage-tab__text"></div>
+              </div>
+            </button>
+
+            <button class="stage-tab" data-stage="3" type="button">
+              <span class="stage-tab__number">04</span>
+              <div class="stage-tab__body">
+                <div class="stage-tab__heading">
+                  <span class="stage-tab__arrow">→</span>
+                  <span class="stage-tab__title">Инженерия</span>
+                </div>
+                <div class="stage-tab__text"></div>
+              </div>
+            </button>
+
+            <button class="stage-tab" data-stage="4" type="button">
+              <span class="stage-tab__number">05</span>
+              <div class="stage-tab__body">
+                <div class="stage-tab__heading">
+                  <span class="stage-tab__arrow">→</span>
+                  <span class="stage-tab__title">Отделка</span>
+                </div>
+                <div class="stage-tab__text"></div>
+              </div>
+            </button>
           </div>
         </div>
 
-        <div class="stages__visual">
+        <div class="stages__visual" id="stagesVisual">
           <img id="stageImage" src="img/Stages (5).png" alt="Этап строительства">
-          <div class="stage-caption" id="stageCaption">
-            Разработка плана дома, технической документации и всех ключевых проектных решений.
-          </div>
         </div>
       </div>
     </section>
@@ -179,24 +265,20 @@
 
         <div class="career__content">
           <h2 class="title title--left">КАРЬЕРА</h2>
-          <p class="career__lead">
+          <p class="career__lead" id="careerLead">
             Большой дом создаёт среду, которая поощряет совместный подход в
             сочетании с профессиональным ростом.
           </p>
-          <p>
+          <p id="careerText">
             У нас ценятся инициативность, ответственность, внимание к деталям
             и желание развивать строительную культуру. Мы ищем специалистов,
             которым важно делать качественный продукт вместе с сильной командой.
           </p>
 
-          <div class="career__switches">
-            <button class="dot is-active" data-career="0" aria-label="Показать фото 1"></button>
-            <button class="dot" data-career="1" aria-label="Показать фото 2"></button>
-            <button class="dot" data-career="2" aria-label="Показать фото 3"></button>
-          </div>
-
-          <div class="career-line" aria-hidden="true">
-            <span></span><span></span><span></span>
+          <div class="career__switches" aria-label="Переключение слайдов карьеры">
+            <button class="dot is-active" type="button" data-career="0" aria-label="Показать слайд 1"></button>
+            <button class="dot" type="button" data-career="1" aria-label="Показать слайд 2"></button>
+            <button class="dot" type="button" data-career="2" aria-label="Показать слайд 3"></button>
           </div>
         </div>
       </div>
@@ -247,22 +329,23 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <a href="#top" class="logo logo--footer">
+      <a href="#top" class="footer__brand" aria-label="Большой Дом">
         <span>БОЛЬШОЙ</span>
         <span>ДОМ</span>
       </a>
 
-      <div class="footer__col">
-        <h3>Ссылки</h3>
-        <a href="#works">Наши работы</a>
-        <a href="#about">О нас</a>
+      <div class="footer__col footer__col--links">
+        <h3>Соц сети</h3>
+        <a href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">VK</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Max</a>
       </div>
 
-      <div class="footer__col">
+      <div class="footer__col footer__col--contacts">
         <h3>Контакты</h3>
-        <a href="tel:+74991122323">+7 (499) 111-22-33</a>
-        <p>Россия, Санкт‑Петербург, ул. Архитекторов, 15</p>
-        <a href="mailto:info@site.com">info@site.com</a>
+        <a href="tel:+78121112233">+7 812 111 22 33</a>
+        <p>Россия, 191186, Санкт-Петербург, ул. Большая Морская, 18</p>
+        <a href="mailto:info@bighouse.ru">info@bighouse.ru</a>
       </div>
     </div>
   </footer>

@@ -18,6 +18,7 @@ const prevSlide = document.getElementById('prevSlide');
 const nextSlide = document.getElementById('nextSlide');
 const sliderDots = document.getElementById('sliderDots');
 let currentSlide = 0;
+let sliderTimer = null;
 
 function renderDots() {
   if (!sliderDots) return;
@@ -33,88 +34,164 @@ function renderDots() {
 }
 
 function goToSlide(index) {
+  if (!slides.length) return;
+
   currentSlide = (index + slides.length) % slides.length;
-  if (sliderTrack) {
-    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-  slides.forEach((slide, i) => slide.classList.toggle('is-active', i === currentSlide));
+
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('is-active', i === currentSlide);
+    slide.style.display = i === currentSlide ? 'block' : 'none';
+  });
+
   renderDots();
+}
+
+function startSliderAutoPlay() {
+  clearInterval(sliderTimer);
+  sliderTimer = setInterval(() => {
+    goToSlide(currentSlide + 1);
+  }, 4500);
+}
+
+function stopSliderAutoPlay() {
+  clearInterval(sliderTimer);
 }
 
 prevSlide?.addEventListener('click', () => goToSlide(currentSlide - 1));
 nextSlide?.addEventListener('click', () => goToSlide(currentSlide + 1));
-renderDots();
-
-let sliderTimer = setInterval(() => goToSlide(currentSlide + 1), 4500);
 
 [prevSlide, nextSlide, sliderTrack].forEach(item => {
-  item?.addEventListener('mouseenter', () => clearInterval(sliderTimer));
-  item?.addEventListener('mouseleave', () => {
-    clearInterval(sliderTimer);
-    sliderTimer = setInterval(() => goToSlide(currentSlide + 1), 4500);
-  });
+  item?.addEventListener('mouseenter', stopSliderAutoPlay);
+  item?.addEventListener('mouseleave', startSliderAutoPlay);
 });
+
+goToSlide(0);
+startSliderAutoPlay();
 
 const stageTabs = Array.from(document.querySelectorAll('.stage-tab'));
 const stageImage = document.getElementById('stageImage');
-const stageCaption = document.getElementById('stageCaption');
+const stagesVisual = document.getElementById('stagesVisual');
 
 const stageData = [
   {
     image: 'img/Stages (5).png',
-    text: 'Разработка плана дома, технической документации и всех ключевых проектных решений.'
+    text: 'Уточняем ваши пожелания, делаем планировку и готовим полный проект с подбором материалов.'
   },
   {
     image: 'img/Stages (1).png',
-    text: 'Подготовка участка и устройство надёжного основания под будущее здание.'
+    text: 'Готовим основание дома, выполняем земляные работы, армирование и заливку надёжного фундамента.'
   },
   {
     image: 'img/Stages (2).png',
-    text: 'Возведение коробки дома, стен, перекрытий и кровельной конструкции.'
+    text: 'Собираем несущую конструкцию дома, возводим стены, перекрытия и кровлю.'
   },
   {
     image: 'img/Stages (3).png',
-    text: 'Монтаж инженерных систем: отопление, вода, электрика и все технические узлы.'
+    text: 'Прокладываем электрику, отопление, водоснабжение и остальные инженерные системы.'
   },
   {
     image: 'img/Stages (4).png',
-    text: 'Финальные интерьерные решения, отделочные работы и подготовка объекта к сдаче.'
+    text: 'Переходим к чистовым работам, оформляем интерьер и подготавливаем объект к сдаче.'
   }
 ];
+
+let currentStageIndex = 0;
+
+function fillStageTexts() {
+  stageTabs.forEach((tab, index) => {
+    const textNode = tab.querySelector('.stage-tab__text');
+    if (textNode && stageData[index]) {
+      textNode.textContent = stageData[index].text;
+    }
+  });
+}
+
+function setStage(index, animate = true) {
+  const normalizedIndex = (index + stageData.length) % stageData.length;
+  const stage = stageData[normalizedIndex];
+  const activeTab = stageTabs[normalizedIndex];
+
+  currentStageIndex = normalizedIndex;
+  stageTabs.forEach(item => item.classList.remove('is-active'));
+  activeTab?.classList.add('is-active');
+
+  if (!stageImage || !stage) {
+    return;
+  }
+
+  if (!animate) {
+    stageImage.src = stage.image;
+    return;
+  }
+
+  stageImage.classList.add('is-changing');
+
+  window.setTimeout(() => {
+    stageImage.src = stage.image;
+    stageImage.classList.remove('is-changing');
+  }, 220);
+}
 
 stageTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     const index = Number(tab.dataset.stage);
-    const stage = stageData[index];
-
-    stageTabs.forEach(item => item.classList.remove('is-active'));
-    tab.classList.add('is-active');
-
-    if (stageImage && stageCaption && stage) {
-      stageImage.src = stage.image;
-      stageCaption.textContent = stage.text;
-    }
+    setStage(index);
   });
 });
 
+fillStageTexts();
+setStage(0, false);
+
+
 const careerImage = document.getElementById('careerImage');
+const careerLead = document.getElementById('careerLead');
+const careerText = document.getElementById('careerText');
 const careerDots = Array.from(document.querySelectorAll('[data-career]'));
-const careerImages = ['img/Career (1).png', 'img/Career (2).png', 'img/Career (3).png'];
+
+const careerData = [
+  {
+    image: 'img/Career (1).png',
+    lead: 'Большой дом создаёт среду, которая поощряет совместный подход в сочетании с профессиональным ростом.',
+    text: 'У нас ценятся инициативность, ответственность, внимание к деталям и желание развивать строительную культуру. Мы ищем специалистов, которым важно делать качественный продукт вместе с сильной командой.'
+  },
+  {
+    image: 'img/Career (2).png',
+    lead: 'Мы поддерживаем развитие сотрудников через сильное окружение, понятные процессы и совместную работу над проектами.',
+    text: 'Для нас важны открытость, надёжность и вовлечённость в общее дело. В команде Большого дома ценят людей, которые умеют брать ответственность и двигать проект вперёд вместе с коллегами.'
+  },
+  {
+    image: 'img/Career (3).png',
+    lead: 'В компании можно расти профессионально, участвовать в реальных проектах и видеть результат своей работы.',
+    text: 'Мы собираем команду специалистов, которым близки качество, аккуратность и уважение к клиенту. Нам важны люди, готовые развиваться вместе с компанией и усиливать общий результат.'
+  }
+];
+
+function setCareer(index) {
+  if (!careerImage || !careerLead || !careerText || !careerDots.length) {
+    return;
+  }
+
+  const safeIndex = Math.max(0, Math.min(index, careerData.length - 1));
+  const item = careerData[safeIndex];
+
+  careerImage.src = item.image;
+  careerLead.textContent = item.lead;
+  careerText.textContent = item.text;
+
+  careerDots.forEach((dot, dotIndex) => {
+    dot.classList.toggle('is-active', dotIndex === safeIndex);
+  });
+}
 
 careerDots.forEach(dot => {
   dot.addEventListener('click', () => {
-    const index = Number(dot.dataset.career);
-    if (careerImage) {
-      careerImage.src = careerImages[index];
-    }
-    careerDots.forEach(item => item.classList.remove('is-active'));
-    dot.classList.add('is-active');
+    setCareer(Number(dot.dataset.career));
   });
 });
 
+setCareer(0);
 
 // НОВАЯ ЧАСТЬ КОДА !!!!!! - отправка данных в API (p.s. Лиза)
-
 
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
@@ -165,3 +242,60 @@ contactForm?.addEventListener('submit', async event => {
     }
   }
 });
+
+const openEstimateModal = document.getElementById('openEstimateModal');
+const estimateModal = document.getElementById('estimateModal');
+const closeEstimateModal = document.getElementById('closeEstimateModal');
+const estimateModalBackdrop = document.getElementById('estimateModalBackdrop');
+const estimateHouseType = document.getElementById('estimateHouseType');
+const estimateArea = document.getElementById('estimateArea');
+const estimateCheckboxes = Array.from(document.querySelectorAll('.estimate-checkbox'));
+const estimateCalculateBtn = document.getElementById('estimateCalculateBtn');
+const estimateResult = document.getElementById('estimateResult');
+
+function formatRub(value) {
+  return new Intl.NumberFormat('ru-RU').format(Math.round(value)) + ' ₽';
+}
+
+function calculateEstimate() {
+  if (!estimateHouseType || !estimateArea || !estimateResult) {
+    return;
+  }
+
+  const area = Math.max(30, Number(estimateArea.value) || 120);
+  const baseRate = Number(estimateHouseType.value) || 16000;
+  const addons = estimateCheckboxes.reduce((sum, checkbox) => {
+    return sum + (checkbox.checked ? Number(checkbox.dataset.addon || 0) : 0);
+  }, 0);
+
+  const total = area * baseRate + addons;
+  estimateResult.textContent = '≈ ' + formatRub(total);
+}
+
+function openModal() {
+  if (!estimateModal) return;
+  estimateModal.hidden = false;
+  document.body.classList.add('modal-open');
+  calculateEstimate();
+}
+
+function closeModal() {
+  if (!estimateModal) return;
+  estimateModal.hidden = true;
+  document.body.classList.remove('modal-open');
+}
+
+openEstimateModal?.addEventListener('click', openModal);
+closeEstimateModal?.addEventListener('click', closeModal);
+estimateModalBackdrop?.addEventListener('click', closeModal);
+estimateCalculateBtn?.addEventListener('click', calculateEstimate);
+estimateHouseType?.addEventListener('change', calculateEstimate);
+estimateArea?.addEventListener('input', calculateEstimate);
+estimateCheckboxes.forEach(checkbox => checkbox.addEventListener('change', calculateEstimate));
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && estimateModal && !estimateModal.hidden) {
+    closeModal();
+  }
+});
+
