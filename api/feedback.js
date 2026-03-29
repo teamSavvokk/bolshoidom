@@ -1,10 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -14,7 +9,41 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // теперь принимаем поля как в форме
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
+    const telegramChatId = process.env.TELEGRAM_CHAT_ID;
+
+    if (!supabaseUrl) {
+      return res.status(500).json({
+        ok: false,
+        message: 'Не задан SUPABASE_URL'
+      });
+    }
+
+    if (!supabaseKey) {
+      return res.status(500).json({
+        ok: false,
+        message: 'Не задан SUPABASE_SERVICE_ROLE_KEY'
+      });
+    }
+
+    if (!telegramBotToken) {
+      return res.status(500).json({
+        ok: false,
+        message: 'Не задан TELEGRAM_BOT_TOKEN'
+      });
+    }
+
+    if (!telegramChatId) {
+      return res.status(500).json({
+        ok: false,
+        message: 'Не задан TELEGRAM_CHAT_ID'
+      });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
     const { firstname, email, number, topic, message } = req.body;
 
     if (!firstname || !email || !number) {
@@ -24,9 +53,11 @@ module.exports = async (req, res) => {
       });
     }
 
+    const trimmedName = String(firstname).trim();
     const trimmedEmail = String(email).trim();
     const trimmedPhone = String(number).trim();
-    const trimmedName = String(firstname).trim();
+    const trimmedTopic = String(topic || 'Обратная связь').trim();
+    const trimmedMessage = String(message || '').trim();
 
     let clientId = null;
 
@@ -67,8 +98,8 @@ module.exports = async (req, res) => {
       .insert([
         {
           id_clients: clientId,
-          topic: topic || 'Обратная связь',
-          message: message || ''
+          topic: trimmedTopic,
+          message: trimmedMessage
         }
       ]);
 
@@ -76,13 +107,42 @@ module.exports = async (req, res) => {
       throw feedbackInsertError;
     }
 
+    const telegramText =
+      `📩 Новая заявка с сайта "Большой Дом"\n\n` +
+      `👤 Имя: ${trimmedName}\n` +
+      `📧 Email: ${trimmedEmail}\n` +
+      `📞 Телефон: ${trimmedPhone}\n` +
+      `🛠 Услуга: ${trimmedTopic}\n` +
+      `💬 Сообщение: ${trimmedMessage || '—'}\n`;
+
+    const telegramResponse = await fetch(
+      `https://api.telegram.org/bot${telegramBotToken}/sendMessage`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: telegramChatId,
+          text: telegramText
+        })
+      }
+    );
+
+    const telegramResult = await telegramResponse.json();
+
+    if (!telegramResponse.ok || !telegramResult.ok) {
+      throw new Error(
+        telegramResult.description || 'Ошибка отправки сообщения в Telegram'
+      );
+    }
+
     return res.status(200).json({
       ok: true,
       message: 'Обращение успешно отправлено'
     });
-
   } catch (error) {
-    console.error(error);
+    console.error('API feedback error:', error);
 
     return res.status(500).json({
       ok: false,
